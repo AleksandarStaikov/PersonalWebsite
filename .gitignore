@@ -105,3 +105,6 @@ venv.bak/
 
 #application secrets
 **secrets.*
+
+#vscode file
+.vscode
