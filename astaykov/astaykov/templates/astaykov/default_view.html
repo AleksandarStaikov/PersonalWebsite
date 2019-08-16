@@ -5,24 +5,11 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+<nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg">
     <div class="collapse navbar-collapse">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <span class="d-block d-lg-none">Aleksandar Staykov</span>
-            <span class="d-none d-lg-block">
-                <img class="img-raised rounded-circle img-fluid mx-auto mb-2"
-                    src="{% static 'astaykov/img/profile.jpg' %}" alt="">
-            </span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                <a class="nav-link js-scroll-trigger" href="#top">About</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
@@ -33,224 +20,215 @@
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#interests">Interests</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
-            </li> -->
         </ul>
     </div>
 </nav>
 
-<div class="container-fluid p-0">
+<div class="profile-page sidebar-collapse">
+    <div class="page-header header-filter" data-parallax="true"
+        style="background-image: url('{% static 'astaykov/img/background.jpg' %}');"></div>
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
-        <div class="w-100">
-            <h1 class="mb-0">Aleksandar
-                <span class="text-primary">Staykov</span>
-            </h1>
-            <div class="subheading mb-5">DEC 1998 · Eindhoven · The Netherlands · (+359) 888-969-064 ·
-                <a href="mailto:name@email.com">aleksandar.staykov.98@email.com</a>
-            </div>
-            <p class="lead mb-5">I am a student in Fontys University Of Applied Science and a part time full stack web
-                developer. I am passionate about software development,
-                networking, brand building, fitness & nutrition.</p>
-            <div>
-                <a class="" href="https://www.linkedin.com/in/aleksandar-staykov/" target="_blank">
-                    <button class="btn btn-primary btn-just-icon btn-round btn-linkedin">
-                        <i class="fa fa-linkedin"> </i>
-                    </button>
-                </a>
-                <a class="" href="https://github.com/AleksandarStaikov" target="_blank">
-                    <button class="btn btn-primary btn-just-icon btn-round btn-github">
-                        <i class="fa fa-github"> </i>
-                    </button>
-                </a>
-                <a class="" href="https://facebook.com/staykov.aleksandar" target="_blank">
-                    <button class="btn btn-primary btn-just-icon btn-round btn-facebook">
-                        <i class="fa fa-facebook"> </i>
-                    </button>
-                </a>
-                <a class="" href="https://www.instagram.com/a_staikov" target="_blank">
-                    <button class="btn btn-primary btn-just-icon btn-round btn-instagram">
-                        <i class="fa fa-instagram"> </i>
-                    </button>
-                </a>
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile">
+                            <div class="avatar">
+                                <img class="img-raised rounded-circle img-fluid"
+                                    src="{% static 'astaykov/img/profile.jpg' %}" alt="">
+                            </div>
+                            <div class="name">
+                                <h1 class="title">Aleksandar
+                                    <span class="text-primary">Staykov</span>
+                                </h1>
+                                <div class="subheading mb-5">DEC 1998 · Eindhoven · The Netherlands · (+359) 888-969-064
+                                    <a href="mailto:name@email.com">aleksandar.staykov.98@email.com</a>
+                                </div>
+                                <a class="" href="https://www.linkedin.com/in/aleksandar-staykov/" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-linkedin">
+                                        <i class="fa fa-linkedin"> </i>
+                                    </button>
+                                </a>
+                                <a class="" href="https://github.com/AleksandarStaikov" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-github">
+                                        <i class="fa fa-github"> </i>
+                                    </button>
+                                </a>
+                                <a class="" href="https://facebook.com/staykov.aleksandar" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-facebook">
+                                        <i class="fa fa-facebook"> </i>
+                                    </button>
+                                </a>
+                                <a class="" href="https://www.instagram.com/a_staikov" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-instagram">
+                                        <i class="fa fa-instagram"> </i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
 
-    <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
-        <div class="w-100">
-            <h2 class="mb-5">Experience</h2>
-
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="resume-content">
-                    <h3 class="mb-0">Full Stack Developer</h3>
-                    <div class="subheading mb-3">Integrace NL</div>
-                    <p>Development of webshop backends and webshop management systems</p>
+        <!-- <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
+            <div class="w-100">
+                <h1 class="mb-0">Aleksandar
+                    <span class="text-primary">Staykov</span>
+                </h1>
+                <div class="subheading mb-5">DEC 1998 · Eindhoven · The Netherlands · (+359) 888-969-064 ·
+                    <a href="mailto:name@email.com">aleksandar.staykov.98@email.com</a>
                 </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">September 2018 - Present</span>
-                </div>
-            </div>
-
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="resume-content">
-                    <h3 class="mb-0">Part timer junior developer</h3>
-                    <div class="subheading mb-3">Wolfpack NL</div>
-                    <p>Python application for sports player statistics calculations, based on data from a wearable
-                        sensor.</p>
-                </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">July 2018 - September 2018</span>
-                </div>
-            </div>
-
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
-                <div class="resume-content">
-                    <h3 class="mb-0">Web Development Intern</h3>
-                    <div class="subheading mb-3">Technologica</div>
-                    <p>ASP.NET web application for monitoring database statistics</p>
-                </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">June 2016 - September 2016</span>
+                <p class="lead mb-5">I am a student in Fontys University Of Applied Science and a part time full stack web
+                    developer. I am passionate about software development,
+                    networking, brand building, fitness & nutrition.</p>
+                <div>
+                    <a class="" href="https://www.linkedin.com/in/aleksandar-staykov/" target="_blank">
+                        <button class="btn btn-primary btn-just-icon btn-round btn-linkedin">
+                            <i class="fa fa-linkedin"> </i>
+                        </button>
+                    </a>
+                    <a class="" href="https://github.com/AleksandarStaikov" target="_blank">
+                        <button class="btn btn-primary btn-just-icon btn-round btn-github">
+                            <i class="fa fa-github"> </i>
+                        </button>
+                    </a>
+                    <a class="" href="https://facebook.com/staykov.aleksandar" target="_blank">
+                        <button class="btn btn-primary btn-just-icon btn-round btn-facebook">
+                            <i class="fa fa-facebook"> </i>
+                        </button>
+                    </a>
+                    <a class="" href="https://www.instagram.com/a_staikov" target="_blank">
+                        <button class="btn btn-primary btn-just-icon btn-round btn-instagram">
+                            <i class="fa fa-instagram"> </i>
+                        </button>
+                    </a>
                 </div>
             </div>
+        </section> -->
 
-        </div>
+        <hr class="m-5">
 
-    </section>
+        <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+            <div class="w-100">
+                <h2 class="mb-5">Experience</h2>
 
-    <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
-        <div class="w-100">
-            <h2 class="mb-5">Education</h2>
-
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="resume-content">
-                    <h3 class="mb-0">Fontys University of Applied Science</h3>
-                    <div class="subheading mb-3">ICT & Software engineering</div>
-                    <!-- <p>GPA: Unknown </p> -->
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Full Stack Developer</h3>
+                        <div class="subheading mb-3">Integrace NL</div>
+                        <p>Development of webshop backends and webshop management systems</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">September 2018 - Present</span>
+                    </div>
                 </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">September 2017 - Ongoing</span>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Part timer junior developer</h3>
+                        <div class="subheading mb-3">Wolfpack NL</div>
+                        <p>Python application for sports player statistics calculations, based on data from a wearable
+                            sensor.</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">July 2018 - September 2018</span>
+                    </div>
                 </div>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Web Development Intern</h3>
+                        <div class="subheading mb-3">Technologica</div>
+                        <p>ASP.NET web application for monitoring database statistics</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">June 2016 - September 2016</span>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
-                <div class="resume-content">
-                    <h3 class="mb-0">VHSE "John Atanasoff"</h3>
-                    <div class="subheading mb-3">Software Programming</div>
-                    <p>GPA: 5.66/6.00</p>
+        </section>
+
+        <hr class="m-0">
+
+        <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
+            <div class="w-100">
+                <h2 class="mb-5">Education</h2>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Fontys University of Applied Science</h3>
+                        <div class="subheading mb-3">ICT & Software engineering</div>
+                        <!-- <p>GPA: Unknown </p> -->
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">September 2017 - Ongoing</span>
+                    </div>
                 </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">September 2012 - May 2017</span>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
+                    <div class="resume-content">
+                        <h3 class="mb-0">VHSE "John Atanasoff"</h3>
+                        <div class="subheading mb-3">Software Programming</div>
+                        <p>GPA: 5.66/6.00</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">September 2012 - May 2017</span>
+                    </div>
                 </div>
+
             </div>
+        </section>
 
-        </div>
-    </section>
+        <hr class="m-0">
 
-    <hr class="m-0">
+        <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
+            <div class="w-100">
+                <h2 class="mb-5">Skills</h2>
+                <h3>
+                    <p class="text-primary title">
+                        Those are some of the things that I have used, and that I am experienced with.
+                    </p>
+                </h3>
+                <div class="subheading mb-3">Programming Languages</div>
+                <ul class="list-inline dev-icons">
+                    <span class="badge badge-info">C#</span>
+                    <span class="badge badge-info">Python</span>
+                    <span class="badge badge-info">Django</span>
+                    <span class="badge badge-info">HTML</span>
+                    <span class="badge badge-info">CSS</span>
+                    <span class="badge badge-info">JS</span>
+                    <span class="badge badge-info">SQL</span>
+                </ul>
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
-        <div class="w-100">
-            <h2 class="mb-5">Skills</h2>
-            <h3>
-                <p class="text-primary title">
-                    Those are some of the things that I have used, and that I am experienced with.
-                </p>
-            </h3>
-            <div class="subheading mb-3">Programming Languages</div>
-            <ul class="list-inline dev-icons">
-                <span class="badge badge-info">C#</span>
-                <span class="badge badge-info">Python</span>
-                <span class="badge badge-info">Django</span>
-                <span class="badge badge-info">HTML</span>
-                <span class="badge badge-info">CSS</span>
-                <span class="badge badge-info">JS</span>
-                <span class="badge badge-info">SQL</span>
-            </ul>
+                <div class="subheading mb-3">Tools</div>
+                <ul class="list-inline dev-icons">
+                    <span class="badge badge-info">Git</span>
+                    <span class="badge badge-info">Visual Studio</span>
+                    <span class="badge badge-info">Visual Studio code</span>
+                    <span class="badge badge-info">Mercurial</span>
+                    <span class="badge badge-info">SQL Server Management Studio</span>
+                    <span class="badge badge-info">NCrunch</span>
+                    <span class="badge badge-info">Reshaper</span>
+                </ul>
 
-            <div class="subheading mb-3">Tools</div>
-            <ul class="list-inline dev-icons">
-                <span class="badge badge-info">Git</span>
-                <span class="badge badge-info">Visual Studio</span>
-                <span class="badge badge-info">Visual Studio code</span>
-                <span class="badge badge-info">Mercurial</span>
-                <span class="badge badge-info">SQL Server Management Studio</span>
-                <span class="badge badge-info">NCrunch</span>
-                <span class="badge badge-info">Reshaper</span>
-            </ul>
-
-            <div class="subheading mb-3">Linux & Networking</div>
-            <ul class="list-inline dev-icons">
-                <span class="badge badge-info">Ubuntu</span>
-                <span class="badge badge-info">SSH</span>
-                <span class="badge badge-info">Wireshark</span>
-                <span class="badge badge-info">PfSense</span>
-                <span class="badge badge-info">VPN</span>
-                <span class="badge badge-info">NGINX</span>
-                <span class="badge badge-info">VMware virtualization</span>
-            </ul>
-        </div>
-    </section>
-
-    <!-- <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
-        <div class="w-100">
-            <h2 class="mb-5">Interests</h2>
-            <p>Apart from being a web developer, I enjoy most of my time being outdoors. In the winter, I am an avid
-                skier and novice ice climber. During the warmer months here in Colorado, I enjoy mountain biking, free
-                climbing, and kayaking.</p>
-            <p class="mb-0">When forced indoors, I follow a number of sci-fi and fantasy genre movies and television
-                shows, I am an aspiring chef, and I spend a large amount of my free time exploring the latest technology
-                advancements in the front-end web development world.</p>
-        </div>
-    </section>
-
-    <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="awards">
-        <div class="w-100">
-            <h2 class="mb-5">Awards &amp; Certifications</h2>
-            <ul class="fa-ul mb-0">
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    Google Analytics Certified Developer</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    Mobile Web Specialist - Google Certification</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    1<sup>st</sup>
-                    Place - University of Colorado Boulder - Emerging Tech Competition 2009</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    1<sup>st</sup>
-                    Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    2<sup>nd</sup>
-                    Place - University of Colorado Boulder - Emerging Tech Competition 2008</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    1<sup>st</sup>
-                    Place - James Buchanan High School - Hackathon 2006</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    3<sup>rd</sup>
-                    Place - James Buchanan High School - Hackathon 2005</li>
-            </ul>
-        </div>
-    </section> -->
-
+                <div class="subheading mb-3">Linux & Networking</div>
+                <ul class="list-inline dev-icons">
+                    <span class="badge badge-info">Ubuntu</span>
+                    <span class="badge badge-info">SSH</span>
+                    <span class="badge badge-info">Wireshark</span>
+                    <span class="badge badge-info">PfSense</span>
+                    <span class="badge badge-info">VPN</span>
+                    <span class="badge badge-info">NGINX</span>
+                    <span class="badge badge-info">VMware virtualization</span>
+                </ul>
+            </div>
+        </section>
+    </div>
 </div>
 
 {% endblock %}
