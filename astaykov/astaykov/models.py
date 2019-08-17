@@ -29,6 +29,7 @@ class LifeEvent(models.Model):
     ('R', 'Rigth')
     ]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     event_begin_date = models.DateTimeField(blank=False)
     event_end_date = models.DateTimeField(null=True, blank=True)
     name = models.CharField(max_length=80)

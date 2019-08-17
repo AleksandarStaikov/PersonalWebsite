@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Aleksandar Staykov | Home page{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#top">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="profile-page sidebar-collapse">
+    <div class="page-header header-filter" data-parallax="true"
+        style="background-image: url('{% static 'astaykov/assets/img/background.jpg' %}');"></div>
+
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile">
+                            <div class="avatar">
+                                <img class="img-raised rounded-circle img-fluid"
+                                    src="{% static 'astaykov/assets/img/profile.jpg' %}" alt="">
+                            </div>
+                            <div class="name">
+                                <h1 class="title">{{ user.first_name }}
+                                    <span class="text-primary">{{ user.last_name }}</span>
+                                </h1>
+                                <div class="subheading mb-5">DEC 1998 · Eindhoven · The Netherlands · (+359) 888-969-064
+                                    <a href="mailto:name@email.com">{{ user.email }}</a>
+                                </div>
+                                <div class="subheading mb-5">{{extended.bio}}</div>
+                                <a class="" href="https://www.linkedin.com/in/aleksandar-staykov/" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-linkedin">
+                                        <i class="fa fa-linkedin"> </i>
+                                    </button>
+                                </a>
+                                <a class="" href="https://github.com/AleksandarStaikov" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-github">
+                                        <i class="fa fa-github"> </i>
+                                    </button>
+                                </a>
+                                <a class="" href="https://facebook.com/staykov.aleksandar" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-facebook">
+                                        <i class="fa fa-facebook"> </i>
+                                    </button>
+                                </a>
+                                <a class="" href="https://www.instagram.com/a_staikov" target="_blank">
+                                    <button class="btn btn-primary btn-just-icon btn-round btn-instagram">
+                                        <i class="fa fa-instagram"> </i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <hr class="m-5">
+
+        <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+            <div class="w-100">
+                {% if events %}
+                <canvas>
+                    {% for event in events %}
+                    <event>
+                        <name>{{event.name}}</name>
+                        <description>{{event.description}}</description>
+                        <location>{{event.location}}</location>
+                        <position>{{event.hover_position}}</position>
+                        <start>{{event.event_begin_date | date:'d-m-yy'}}</start>
+                        <end>{{event.event_end_date | date:'d-m-yy'}}</end>
+                    </event>
+                    {% endfor %}
+                </canvas>
+                {% endif %}
+            </div>
+
+        </section>
+
+        <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+            <div class="w-100">
+                <h2 class="mb-5">Experience</h2>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Full Stack Developer</h3>
+                        <div class="subheading mb-3">Integrace NL</div>
+                        <p>Development of webshop backends and webshop management systems</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">September 2018 - Present</span>
+                    </div>
+                </div>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Part timer junior developer</h3>
+                        <div class="subheading mb-3">Wolfpack NL</div>
+                        <p>Python application for sports player statistics calculations, based on data from a wearable
+                            sensor.</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">July 2018 - September 2018</span>
+                    </div>
+                </div>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Web Development Intern</h3>
+                        <div class="subheading mb-3">Technologica</div>
+                        <p>ASP.NET web application for monitoring database statistics</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">June 2016 - September 2016</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <hr class="m-0">
+
+        <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
+            <div class="w-100">
+                <h2 class="mb-5">Education</h2>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="resume-content">
+                        <h3 class="mb-0">Fontys University of Applied Science</h3>
+                        <div class="subheading mb-3">ICT & Software engineering</div>
+                        <!-- <p>GPA: Unknown </p> -->
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">September 2017 - Ongoing</span>
+                    </div>
+                </div>
+
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
+                    <div class="resume-content">
+                        <h3 class="mb-0">VHSE "John Atanasoff"</h3>
+                        <div class="subheading mb-3">Software Programming</div>
+                        <p>GPA: 5.66/6.00</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">September 2012 - May 2017</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="m-0">
+
+        <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
+            <div class="w-100">
+                <h2 class="mb-5">Skills</h2>
+                <h3>
+                    <p class="text-primary title">
+                        Those are some of the things that I have used, and that I am experienced with.
+                    </p>
+                </h3>
+                <div class="subheading mb-3">Programming Languages</div>
+                <ul class="list-inline dev-icons">
+                    <span class="badge badge-info">C#</span>
+                    <span class="badge badge-info">Python</span>
+                    <span class="badge badge-info">Django</span>
+                    <span class="badge badge-info">HTML</span>
+                    <span class="badge badge-info">CSS</span>
+                    <span class="badge badge-info">JS</span>
+                    <span class="badge badge-info">SQL</span>
+                </ul>
+
+                <div class="subheading mb-3">Tools</div>
+                <ul class="list-inline dev-icons">
+                    <span class="badge badge-info">Git</span>
+                    <span class="badge badge-info">Visual Studio</span>
+                    <span class="badge badge-info">Visual Studio code</span>
+                    <span class="badge badge-info">Mercurial</span>
+                    <span class="badge badge-info">SQL Server Management Studio</span>
+                    <span class="badge badge-info">NCrunch</span>
+                    <span class="badge badge-info">Reshaper</span>
+                </ul>
+
+                <div class="subheading mb-3">Linux & Networking</div>
+                <ul class="list-inline dev-icons">
+                    <span class="badge badge-info">Ubuntu</span>
+                    <span class="badge badge-info">SSH</span>
+                    <span class="badge badge-info">Wireshark</span>
+                    <span class="badge badge-info">PfSense</span>
+                    <span class="badge badge-info">VPN</span>
+                    <span class="badge badge-info">NGINX</span>
+                    <span class="badge badge-info">VMware virtualization</span>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock %}
