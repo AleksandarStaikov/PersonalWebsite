@@ -88,8 +88,8 @@
                         <description>{{event.description}}</description>
                         <location>{{event.location}}</location>
                         <position>{{event.hover_position}}</position>
-                        <start>{{event.event_begin_date | date:'d-m-yy'}}</start>
-                        <end>{{event.event_end_date | date:'d-m-yy'}}</end>
+                        <start>{{event.event_begin_date | date:'Y-m-d'}}</start>
+                        <end>{{event.event_end_date | date:'Y-m-d'}}</end>
                     </event>
                     {% endfor %}
                 </canvas>
