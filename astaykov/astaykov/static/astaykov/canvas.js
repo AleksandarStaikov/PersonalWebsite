@@ -44,6 +44,7 @@ addEventListener('mousemove', event => {
 
 addEventListener('resize', () => {
     canvas.width = holder[0].clientWidth;
+    init();
 })
 
 function randomColor(colors) {
@@ -52,7 +53,7 @@ function randomColor(colors) {
 
 this.computeLocation = function (date) {
     if (date === this.undefined || date === null) {
-        return 100;
+        return canvas.width - 15;
     }
 
     var availableSpace = canvas.width;
@@ -87,12 +88,10 @@ function Event(name, desk, location, position, start, end) {
         if (this.end !== undefined && +this.end === +this.start) {
             this.startMark = computeLocation(this.start);
             this.drawCircle();
-            console.log("c", this.name)
         } else {
             this.startMark = computeLocation(this.start);
             this.endMark = computeLocation(this.end);
             this.drawTimeFrame();
-            console.log("tf", this.name)
         }
     }
 
@@ -107,15 +106,18 @@ function Event(name, desk, location, position, start, end) {
     }
 
     this.drawTimeFrame = function () {
-        var x = this.startMark;
-        var y = canvas.height / 2;
+        var eventLength = this.endMark - this.startMark;
+
+        console.log(eventLength);
+
         var r = 15;
-        var ld = 60;
+        var x = this.startMark + r;
+        var y = canvas.height / 2;
+        var ld = (eventLength - (4 * r)) / 2;
 
         c.beginPath();
         c.arc(x, y, r, Math.PI, Math.PI * 1.5);
 
-        x += r;
         y -= r;
 
         c.lineTo(x + ld, y);
@@ -129,7 +131,7 @@ function Event(name, desk, location, position, start, end) {
 
         c.arc(x, y, r, Math.PI, Math.PI * 0.5, true);
 
-        x += r + ld
+        x += ld
         y += r
 
         c.lineTo(x, y)
@@ -140,6 +142,7 @@ function Event(name, desk, location, position, start, end) {
 
         c.stroke();
     }
+
 
     this.update = function () {
         this.draw()
@@ -152,21 +155,21 @@ var eventElements = $(canvas).children();
 var readEvents = [];
 var eventObjects = [];
 function init() {
+    readEvents = [];
+    eventObjects = [];
     eventElements.toArray().forEach(a => readEvents.push(parseEvents($(a))));
-    readEvents.forEach(e => eventObjects.push(new Event(e.name, e.description, e.location, e.position, new Date(e.start), new Date(e.end))));
-    eventObjects.push(new Event("Now", null, null, "Right", Date.now(), Date.now()))
-    console.log(eventObjects);
-}
-
-// Animation Loop
-function animate() {
-    requestAnimationFrame(animate)
-    c.clearRect(0, 0, canvas.width, canvas.height)
-
+    readEvents.forEach(e => eventObjects.push(new Event(e.name, e.description, e.location, e.position, new Date(e.start), e.end ? new Date(e.end) : new Date())));
+    eventObjects.push(new Event("Now", null, null, "Right", new Date(), new Date()))
+    c.beginPath();
+    c.moveTo(15, canvas.height / 2);
+    c.lineTo(canvas.width - 15, canvas.height / 2);
+    c.strokeStyle = colors[1];
+    c.stroke();
     eventObjects.forEach(element => {
         element.draw();
     });
 }
 
+// Animation Loop
+
 init()
-animate()
