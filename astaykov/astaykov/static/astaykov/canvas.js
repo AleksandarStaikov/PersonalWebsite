@@ -1,6 +1,7 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 const holder = $(canvas).parent();
+const eventRadius = 5;
 
 function parseEvents(eventElement) {
     var name = eventElement.children('name').text();
@@ -22,14 +23,15 @@ function parseEvents(eventElement) {
     return obj;
 }
 
-var eventElements = $(canvas).children();
-var readEvents = [];
-eventElements.toArray().forEach(a => readEvents.push(parseEvents($(a))));
-
 canvas.width = holder[0].clientWidth;
-canvas.height = 100;
+canvas.height = 200;
 
 const mouse = {
+    x: undefined,
+    y: undefined
+}
+
+const canvasLocation = {
     x: undefined,
     y: undefined
 }
@@ -40,19 +42,28 @@ const colors = ['#2185C5', '#7ECEFD', '#FF7F66']
 addEventListener('mousemove', event => {
     mouse.x = event.clientX
     mouse.y = event.clientY
+    init();
 })
+
+addEventListener('scroll', updateCanvasLocation)
 
 addEventListener('resize', () => {
     canvas.width = holder[0].clientWidth;
     init();
 })
 
+function updateCanvasLocation() {
+    var canvasPossition = $(canvas).offset();
+    canvasLocation.y = canvasPossition.top -= $(window).scrollTop()
+    canvasLocation.x = canvasPossition.left
+}
+
 function randomColor(colors) {
     return colors[Math.floor(Math.random() * colors.length)]
 }
 
-this.computeLocation = function (date) {
-    if (date === this.undefined || date === null) {
+function computeLocation(date) {
+    if (date === undefined || date === null) {
         return canvas.width - 15;
     }
 
@@ -61,10 +72,51 @@ this.computeLocation = function (date) {
 
     var curentDiff = Math.floor((date - eventObjects[0].start) / (1000 * 60 * 60 * 24));
 
-    var onePercent = 100 / daysDiff;
-    var curentPercent = Math.round(curentDiff * onePercent);
+    var oneDayInPercents = 100 / daysDiff;
+    var curentPercent = Math.round(curentDiff * oneDayInPercents);
 
     return Math.round((availableSpace - 30) / 100 * curentPercent) + 15
+}
+
+function computeRadius(length) {
+    min = 16
+    max = 200
+    a = 4
+    b = 13
+    if (length < min) {
+        return 0;
+    }
+
+    if (length > max) {
+        return 14;
+    }
+
+    return (b - a) * (length - min) / (max - min) + a
+}
+
+function distanceBetweenPoints(a, b, x, y) {
+    var horizontalDistance = Math.abs(a - x)
+    var verticalDistance = Math.abs(b - y)
+    return Math.sqrt(horizontalDistance * horizontalDistance + verticalDistance + verticalDistance)
+}
+
+function computeHoveredEvent(events) {
+    var closest = events[0];
+    var lowestDistance = distanceBetweenPoints(mouse.x, mouse.y, events[0].center.x + canvasLocation.x, events[0].center.y + canvasLocation.y)
+
+    events.forEach(e => {
+        var eventGlobalX = e.center.x + canvasLocation.x
+        var eventGlobalY = e.center.y + canvasLocation.y
+        var currentElementDistance = distanceBetweenPoints(mouse.x, mouse.y, eventGlobalX, eventGlobalY)
+        if (currentElementDistance < lowestDistance) {
+            closest = e
+            lowestDistance = currentElementDistance
+        }
+    })
+
+    if (lowestDistance <= eventRadius) {
+        return closest;
+    }
 }
 
 // Objects
@@ -77,27 +129,39 @@ function Event(name, desk, location, position, start, end) {
     this.end = end
     this.startMark = undefined
     this.endMark = undefined
+    this.center = { x: undefined, y: undefined }
+    this.r = undefined
+    this.eventLength = undefined
 
     this.isSingle = function () {
-        return this.end === undefined || this.start === this.end;
+        return this.end !== undefined && +this.end === +this.start;
     }
-
-
 
     this.draw = function () {
-        if (this.end !== undefined && +this.end === +this.start) {
-            this.startMark = computeLocation(this.start);
-            this.drawCircle();
-        } else {
-            this.startMark = computeLocation(this.start);
+        this.startMark = computeLocation(this.start);
+        if (!this.isSingle()) {
             this.endMark = computeLocation(this.end);
-            this.drawTimeFrame();
+            this.eventLength = this.endMark - this.startMark
+            this.r = computeRadius(this.eventLength);
         }
+
+        if (this.r === undefined || this.r === 0) {
+            var circleMiddle = this.eventLength ? this.eventLength / 2 + this.startMark : this.startMark
+            this.center.x = circleMiddle
+            this.center.y = canvas.height / 2
+        } else {
+            if (this.position === 'B') {
+                this.drawTimeFrameBellow()
+            } else {
+                this.drawTimeFrameAbove();
+            }
+        }
+        this.drawCircle(this.center.x, this.center.y);
     }
 
-    this.drawCircle = function () {
+    this.drawCircle = function (x, y) {
         c.beginPath();
-        c.arc(this.startMark, canvas.height / 2, 5, 0, Math.PI * 2, false)
+        c.arc(x, y, eventRadius, 0, Math.PI * 2, false)
         c.strokeStyle = colors[0];
         c.fillStyle = colors[2];
         c.stroke();
@@ -105,71 +169,105 @@ function Event(name, desk, location, position, start, end) {
         c.closePath()
     }
 
-    this.drawTimeFrame = function () {
-        var eventLength = this.endMark - this.startMark;
-
-        console.log(eventLength);
-
-        var r = 15;
-        var x = this.startMark + r;
+    this.drawTimeFrameAbove = function () {
+        var x = this.startMark + this.r;
         var y = canvas.height / 2;
-        var ld = (eventLength - (4 * r)) / 2;
+        var ld = (this.eventLength - (4 * this.r)) / 2;
 
         c.beginPath();
-        c.arc(x, y, r, Math.PI, Math.PI * 1.5);
+        c.arc(x, y, this.r, Math.PI, Math.PI * 1.5);
 
-        y -= r;
+        y -= this.r;
 
         c.lineTo(x + ld, y);
 
         x += ld;
-        y -= r;
+        y -= this.r;
 
-        c.arc(x, y, r, Math.PI * 0.5, 0, true);
+        c.arc(x, y, this.r, Math.PI * 0.5, 0, true);
 
-        x += 2 * r
+        this.center.x = x + this.r
+        this.center.y = y
+        x += 2 * this.r
 
-        c.arc(x, y, r, Math.PI, Math.PI * 0.5, true);
+        c.arc(x, y, this.r, Math.PI, Math.PI * 0.5, true);
 
         x += ld
-        y += r
+        y += this.r
 
         c.lineTo(x, y)
 
-        y += r;
+        y += this.r;
 
-        c.arc(x, y, r, Math.PI * 1.5, Math.PI * 0);
+        c.arc(x, y, this.r, Math.PI * 1.5, Math.PI * 0);
 
         c.stroke();
     }
 
+    this.drawTimeFrameBellow = function () {
+        var x = this.startMark + this.r;
+        var y = canvas.height / 2;
+        var ld = (this.eventLength - (4 * this.r)) / 2;
+
+        c.beginPath();
+        c.arc(x, y, this.r, Math.PI, Math.PI * 0.5, true);
+
+        y += this.r;
+
+        c.lineTo(x + ld, y);
+
+        x += ld;
+        y += this.r;
+
+        c.arc(x, y, this.r, Math.PI * 1.5, 0);
+
+        this.center.x = x + this.r
+        this.center.y = y
+        x += 2 * this.r
+
+        c.arc(x, y, this.r, Math.PI * 1.0, Math.PI * 1.5);
+
+        x += ld
+        y -= this.r
+
+        c.lineTo(x, y)
+
+        y -= this.r;
+
+        c.arc(x, y, this.r, Math.PI * 0.5, Math.PI * 0, true);
+
+        c.stroke();
+    }
 
     this.update = function () {
         this.draw()
     }
 }
 
-
 // Implementation
 var eventElements = $(canvas).children();
 var readEvents = [];
 var eventObjects = [];
+eventElements.toArray().forEach(a => readEvents.push(parseEvents($(a))));
+readEvents.forEach(e => eventObjects.push(new Event(e.name, e.description, e.location, e.position, new Date(e.start), e.end ? new Date(e.end) : new Date())));
+eventObjects.push(new Event("Now", null, null, "Right", new Date(), new Date()))
+
 function init() {
-    readEvents = [];
-    eventObjects = [];
-    eventElements.toArray().forEach(a => readEvents.push(parseEvents($(a))));
-    readEvents.forEach(e => eventObjects.push(new Event(e.name, e.description, e.location, e.position, new Date(e.start), e.end ? new Date(e.end) : new Date())));
-    eventObjects.push(new Event("Now", null, null, "Right", new Date(), new Date()))
+    updateCanvasLocation()
+
     c.beginPath();
     c.moveTo(15, canvas.height / 2);
     c.lineTo(canvas.width - 15, canvas.height / 2);
     c.strokeStyle = colors[1];
     c.stroke();
-    eventObjects.forEach(element => {
-        element.draw();
-    });
-}
 
-// Animation Loop
+    eventObjects.forEach(event => {
+        event.draw();
+    });
+
+    var hoveredEvent = computeHoveredEvent(eventObjects)
+
+
+}
 
 init()
