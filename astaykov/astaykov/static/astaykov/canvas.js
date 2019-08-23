@@ -24,7 +24,7 @@ function parseEvents(eventElement) {
 }
 
 canvas.width = holder[0].clientWidth;
-canvas.height = 200;
+canvas.height = 100;
 
 const mouse = {
     x: undefined,
@@ -118,6 +118,8 @@ function computeHoveredEvent(events) {
         return closest;
     }
 }
+
+
 
 // Objects
 function Event(name, desk, location, position, start, end) {
@@ -244,16 +246,83 @@ function Event(name, desk, location, position, start, end) {
     }
 }
 
+function EventDisplay() {
+    this.educationTitle = $(".education-title")
+    this.educationLocation = $(".education-location")
+    this.educationPeriod = $(".education-period")
+    this.educationDescription = $(".education-description")
+
+    this.experienceTitle = $(".experience-title")
+    this.experienceLocation = $(".experience-location")
+    this.experiencePeriod = $(".experience-period")
+    this.experienceDescription = $(".experience-description")
+
+    this.clearFields = function () {
+        this.educationTitle.text(" ")
+        this.educationLocation.text(" ")
+        this.educationPeriod.text(" ")
+        this.educationDescription.text(" ")
+
+        this.experienceTitle.text("")
+        this.experienceLocation.text("")
+        this.experiencePeriod.text("")
+        this.experienceDescription.text("")
+    }
+
+    this.displayEducationData = function (event) {
+        this.educationTitle.text(event.name)
+        this.educationLocation.text(event.location)
+        this.educationPeriod.text(this.formatDate(event.start) + " - " + this.formatDate(event.end))
+        this.educationDescription.text(event.description)
+    }
+
+    this.displayExperienceData = function (event) {
+        this.experienceTitle.text(event.name)
+        this.experienceLocation.text(event.location)
+        this.experiencePeriod.text(this.formatDate(event.start) + " - " + this.formatDate(event.end))
+        this.experienceDescription.text(event.description)
+    }
+
+    this.formatDate = function (date) {
+        var today = new Date()
+        if (date === undefined ||
+            (date.getDate() == today.getDate() &&
+            date.getMonth() == today.getMonth() &&
+            date.getFullYear() == today.getFullYear())) {
+            return "Present"
+        }
+
+        var options = { year: 'numeric', month: 'short' };
+        return date.toLocaleDateString("en-US", options)
+    }
+
+    this.displayEvent = function (event) {
+        if (event === undefined) {
+            this.clearFields()
+            return
+        }
+
+        if (event.position === 'B') {
+            this.displayExperienceData(event)
+        } else {
+            this.displayEducationData(event);
+        }
+    }
+}
+
 // Implementation
 var eventElements = $(canvas).children();
 var readEvents = [];
-var eventObjects = [];
+var hoverDisplay = new EventDisplay()
 eventElements.toArray().forEach(a => readEvents.push(parseEvents($(a))));
-readEvents.forEach(e => eventObjects.push(new Event(e.name, e.description, e.location, e.position, new Date(e.start), e.end ? new Date(e.end) : new Date())));
-eventObjects.push(new Event("Now", null, null, "Right", new Date(), new Date()))
-
 function init() {
+    c.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvasLocation()
+
+    eventObjects = [];
+    readEvents.forEach(e => eventObjects.push(new Event(e.name, e.desc, e.location, e.position, new Date(e.start), e.end ? new Date(e.end) : new Date())));
+    eventObjects.push(new Event("Now", null, null, "Right", new Date(), new Date()))
+
 
     c.beginPath();
     c.moveTo(15, canvas.height / 2);
@@ -266,6 +335,7 @@ function init() {
     });
 
     var hoveredEvent = computeHoveredEvent(eventObjects)
+    hoverDisplay.displayEvent(hoveredEvent)
 
 
 }

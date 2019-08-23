@@ -81,6 +81,15 @@
         <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
             <div class="w-100">
                 {% if events %}
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between" style="height: 150px;">
+                    <div class="resume-content">
+                        <h3 class="mb-0 education-title"></h3>
+                        <div class="subheading mb-0 education-location"></div>
+                        <span class="text-primary education-period"></span>
+                        <p class="education-description"></p>
+                    </div>
+                </div>
+                <h4 class="">Education</h4>
                 <canvas>
                     {% for event in events %}
                     <event>
@@ -93,6 +102,15 @@
                     </event>
                     {% endfor %}
                 </canvas>
+                <h4 class="">Experience</h4>
+                <div class="resume-item d-flex flex-column flex-md-row justify-content-between" style="height: 150px;">
+                    <div class="resume-content">
+                        <h3 class="mb-0 experience-title"></h3>
+                        <div class="subheading mb-0 experience-location"></div>
+                        <span class="text-primary experience-period"></span>
+                        <p class="experience-description"></p>
+                    </div>
+                </div>
                 {% endif %}
             </div>
 
@@ -102,39 +120,20 @@
             <div class="w-100">
                 <h2 class="mb-5">Experience</h2>
 
-                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                    <div class="resume-content">
-                        <h3 class="mb-0">Full Stack Developer</h3>
-                        <div class="subheading mb-3">Integrace NL</div>
-                        <p>Development of webshop backends and webshop management systems</p>
+                {% for event in events %}
+                    {% if event.hover_position == "B" %}
+                    <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="resume-content">
+                            <h3 class="mb-0">{{event.name}}</h3>
+                            <div class="subheading mb-3">{{event.location}}</div>
+                            <p>{{event.description}}</p>
+                        </div>
+                        <div class="resume-date text-md-right">
+                            <span class="text-primary">{{ event.event_begin_date.date | date:'M Y' | default:"Present" }} - {{ event.event_end_date.date | date:'M Y' | default:"Present" }}</span>
+                        </div>
                     </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">September 2018 - Present</span>
-                    </div>
-                </div>
-
-                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                    <div class="resume-content">
-                        <h3 class="mb-0">Part timer junior developer</h3>
-                        <div class="subheading mb-3">Wolfpack NL</div>
-                        <p>Python application for sports player statistics calculations, based on data from a wearable
-                            sensor.</p>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">July 2018 - September 2018</span>
-                    </div>
-                </div>
-
-                <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
-                    <div class="resume-content">
-                        <h3 class="mb-0">Web Development Intern</h3>
-                        <div class="subheading mb-3">Technologica</div>
-                        <p>ASP.NET web application for monitoring database statistics</p>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">June 2016 - September 2016</span>
-                    </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
 
             </div>
 
@@ -146,27 +145,20 @@
             <div class="w-100">
                 <h2 class="mb-5">Education</h2>
 
-                <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                    <div class="resume-content">
-                        <h3 class="mb-0">Fontys University of Applied Science</h3>
-                        <div class="subheading mb-3">ICT & Software engineering</div>
-                        <!-- <p>GPA: Unknown </p> -->
+                {% for event in events %}
+                    {% if event.hover_position == "T" %}
+                    <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="resume-content">
+                            <h3 class="mb-0">{{event.name}}</h3>
+                            <div class="subheading mb-3">{{event.location}}</div>
+                            <p>{{event.description}}</p>
+                        </div>
+                        <div class="resume-date text-md-right">
+                            <span class="text-primary">{{ event.event_begin_date.date | date:'M Y' | default:"Present" }} - {{ event.event_end_date.date | date:'M Y' | default:"Present" }}</span>
+                        </div>
                     </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">September 2017 - Ongoing</span>
-                    </div>
-                </div>
-
-                <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
-                    <div class="resume-content">
-                        <h3 class="mb-0">VHSE "John Atanasoff"</h3>
-                        <div class="subheading mb-3">Software Programming</div>
-                        <p>GPA: 5.66/6.00</p>
-                    </div>
-                    <div class="resume-date text-md-right">
-                        <span class="text-primary">September 2012 - May 2017</span>
-                    </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
 
             </div>
         </section>
